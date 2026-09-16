@@ -11,8 +11,9 @@ npm run dev
 
 Mở [http://localhost:3000](http://localhost:3000).
 
-- Tiếng Việt: `/`
-- English: `/en`
+- English (default): `/`
+- Tiếng Việt: `/vi`
+- `/en` remains available as a compatibility route for the English version.
 
 ## Kiểm tra trước khi deploy
 

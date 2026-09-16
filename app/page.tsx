@@ -1,4 +1,5 @@
 import { ContactForm } from "@/app/components/contact-form";
+import type { Metadata } from "next";
 import Link from "next/link";
 import Image from "next/image";
 import {
@@ -10,6 +11,12 @@ import {
 import { projectsEn, skillGroupsEn } from "@/app/data/portfolio-en";
 
 export type PortfolioLocale = "vi" | "en";
+
+export const metadata: Metadata = {
+  title: "Mai Thi Thanh Ngan | Full-stack & Mobile Developer",
+  description:
+    "Portfolio of Mai Thi Thanh Ngan, a Software Engineering student and Full-stack & Mobile Developer experienced with React, Flutter, and Node.js.",
+};
 
 const pageCopy = {
   vi: {
@@ -235,19 +242,19 @@ export function PortfolioPage({ locale }: { locale: PortfolioLocale }) {
 
           <nav className="language-switcher" aria-label="Language selection">
             <Link
-              className={locale === "vi" ? "is-active" : ""}
-              href="/"
-              aria-current={locale === "vi" ? "page" : undefined}
-            >
-              VI
-            </Link>
-            <span aria-hidden="true">/</span>
-            <Link
               className={locale === "en" ? "is-active" : ""}
-              href="/en"
+              href="/"
               aria-current={locale === "en" ? "page" : undefined}
             >
               EN
+            </Link>
+            <span aria-hidden="true">/</span>
+            <Link
+              className={locale === "vi" ? "is-active" : ""}
+              href="/vi"
+              aria-current={locale === "vi" ? "page" : undefined}
+            >
+              VI
             </Link>
           </nav>
 
@@ -579,5 +586,5 @@ export function PortfolioPage({ locale }: { locale: PortfolioLocale }) {
 }
 
 export default function Home() {
-  return <PortfolioPage locale="vi" />;
+  return <PortfolioPage locale="en" />;
 }
