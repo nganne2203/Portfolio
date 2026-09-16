@@ -1,36 +1,50 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Mai Thị Thanh Ngân Portfolio
 
-## Getting Started
+Landing page portfolio cá nhân được xây dựng bằng Next.js 16, React 19 và TypeScript. Trang giới thiệu định hướng Full-stack & Mobile Developer, kỹ năng, dự án, kinh nghiệm, thành tích và thông tin liên hệ.
 
-First, run the development server:
+## Chạy dự án
 
 ```bash
+npm install
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Mở [http://localhost:3000](http://localhost:3000).
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Kiểm tra trước khi deploy
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+```bash
+npm run lint
+npm run build -- --webpack
+```
 
-## Learn More
+Webpack được dùng cho bước build cục bộ để tránh giới hạn mở cổng nội bộ của Turbopack trong một số môi trường sandbox. Vercel vẫn có thể chạy lệnh build mặc định của Next.js.
 
-To learn more about Next.js, take a look at the following resources:
+## Cập nhật nội dung
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+- Nội dung hiển thị chính: `app/page.tsx`
+- Dự án, kỹ năng, chứng chỉ và thông tin cá nhân: `app/data/portfolio.ts`
+- Hệ thống màu, responsive và hiệu ứng: `app/globals.css`
+- Form liên hệ: `app/components/contact-form.tsx`
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+Để thêm chứng chỉ, cập nhật một phần tử trong mảng `credentials`:
 
-## Deploy on Vercel
+```ts
+{
+  title: "Tên chứng chỉ",
+  issuer: "Đơn vị cấp",
+  date: "MM/YYYY",
+  type: "certificate",
+  thumbnail: "/certificates/thumbnail.jpg",
+  credentialUrl: "/certificates/certificate.pdf",
+}
+```
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+`credentialUrl` hỗ trợ file trong thư mục `public` hoặc URL ngoài như Google Drive, LinkedIn và Credly. Khi chưa có URL, thẻ vẫn hiển thị với trạng thái chưa khả dụng.
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## Deploy Vercel
+
+1. Đẩy repository lên GitHub.
+2. Import repository trong Vercel.
+3. Giữ framework preset là Next.js và lệnh build mặc định.
+4. Deploy, sau đó kiểm tra điều hướng, repository links và responsive trên URL thật.
