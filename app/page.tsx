@@ -222,7 +222,7 @@ export function PortfolioPage({ locale }: { locale: PortfolioLocale }) {
                 priority
               />
             </span>
-            <span className="brand-name">Thanh Ngân</span>
+            <span className="brand-name">{locale === "vi" ? 'Thanh Ngân' : 'Thanh Ngan'}</span>
           </a>
 
           <nav className="desktop-nav" aria-label={t.navLabel}>
@@ -278,7 +278,7 @@ export function PortfolioPage({ locale }: { locale: PortfolioLocale }) {
           <div className="container hero-inner">
             <div className="hero-copy">
               <p className="eyebrow reveal">Portfolio · 2026</p>
-              <h1 className="reveal">Mai Thị Thanh Ngân</h1>
+              <h1 className="reveal">{locale === "vi" ? 'Mai Thị Thanh Ngân' : 'Mai Thi Thanh Ngan'}</h1>
               <p className="hero-role reveal">
                 Software Engineering Student
                 <span>Full-stack &amp; Mobile Developer</span>
@@ -360,7 +360,7 @@ export function PortfolioPage({ locale }: { locale: PortfolioLocale }) {
               <div className="about-copy">
                 <p>
                   {t.about.leadBefore}
-                  <strong>Mai Thị Thanh Ngân</strong>
+                  <strong>{locale === "vi" ? 'Mai Thị Thanh Ngân' : 'Mai Thi Thanh Ngan'}</strong>
                   {t.about.leadAfter}
                 </p>
                 <p>{t.about.direction}</p>
