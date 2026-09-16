@@ -1,5 +1,7 @@
 import { ContactForm } from "@/app/components/contact-form";
+import type { Metadata } from "next";
 import Link from "next/link";
+import Image from "next/image";
 import {
   credentials,
   profile,
@@ -9,6 +11,12 @@ import {
 import { projectsEn, skillGroupsEn } from "@/app/data/portfolio-en";
 
 export type PortfolioLocale = "vi" | "en";
+
+export const metadata: Metadata = {
+  title: "Mai Thi Thanh Ngan | Full-stack & Mobile Developer",
+  description:
+    "Portfolio of Mai Thi Thanh Ngan, a Software Engineering student and Full-stack & Mobile Developer experienced with React, Flutter, and Node.js.",
+};
 
 const pageCopy = {
   vi: {
@@ -211,9 +219,17 @@ export function PortfolioPage({ locale }: { locale: PortfolioLocale }) {
         <div className="container header-inner">
           <a className="brand" href="#top" aria-label={t.homeLabel}>
             <span className="brand-mark" aria-hidden="true">
-              {profile.initials}
+              <Image
+                src={profile.avatar}
+                alt=""
+                width={48}
+                height={48}
+                sizes="48px"
+                className="brand-avatar"
+                priority
+              />
             </span>
-            <span className="brand-name">Thanh Ngân</span>
+            <span className="brand-name">{locale === "vi" ? 'Thanh Ngân' : 'Thanh Ngan'}</span>
           </a>
 
           <nav className="desktop-nav" aria-label={t.navLabel}>
@@ -226,19 +242,19 @@ export function PortfolioPage({ locale }: { locale: PortfolioLocale }) {
 
           <nav className="language-switcher" aria-label="Language selection">
             <Link
-              className={locale === "vi" ? "is-active" : ""}
-              href="/"
-              aria-current={locale === "vi" ? "page" : undefined}
-            >
-              VI
-            </Link>
-            <span aria-hidden="true">/</span>
-            <Link
               className={locale === "en" ? "is-active" : ""}
-              href="/en"
+              href="/"
               aria-current={locale === "en" ? "page" : undefined}
             >
               EN
+            </Link>
+            <span aria-hidden="true">/</span>
+            <Link
+              className={locale === "vi" ? "is-active" : ""}
+              href="/vi"
+              aria-current={locale === "vi" ? "page" : undefined}
+            >
+              VI
             </Link>
           </nav>
 
@@ -269,7 +285,7 @@ export function PortfolioPage({ locale }: { locale: PortfolioLocale }) {
           <div className="container hero-inner">
             <div className="hero-copy">
               <p className="eyebrow reveal">Portfolio · 2026</p>
-              <h1 className="reveal">Mai Thị Thanh Ngân</h1>
+              <h1 className="reveal">{locale === "vi" ? 'Mai Thị Thanh Ngân' : 'Mai Thi Thanh Ngan'}</h1>
               <p className="hero-role reveal">
                 Software Engineering Student
                 <span>Full-stack &amp; Mobile Developer</span>
@@ -351,7 +367,7 @@ export function PortfolioPage({ locale }: { locale: PortfolioLocale }) {
               <div className="about-copy">
                 <p>
                   {t.about.leadBefore}
-                  <strong>Mai Thị Thanh Ngân</strong>
+                  <strong>{locale === "vi" ? 'Mai Thị Thanh Ngân' : 'Mai Thi Thanh Ngan'}</strong>
                   {t.about.leadAfter}
                 </p>
                 <p>{t.about.direction}</p>
@@ -510,9 +526,13 @@ export function PortfolioPage({ locale }: { locale: PortfolioLocale }) {
                     }
                     aria-hidden="true"
                   >
-                    <span>{credential.type === "award" ? "Award" : "Certificate"}</span>
-                    <strong>{String(index + 1).padStart(2, "0")}</strong>
-                    <i>{credential.issuer}</i>
+                    {!credential.thumbnail && (
+                      <>
+                        <span>{credential.type === "award" ? "Award" : "Certificate"}</span>
+                        <strong>{String(index + 1).padStart(2, "0")}</strong>
+                        <i>{credential.issuer}</i>
+                      </>
+                    )}
                   </div>
                   <div className="credential-content">
                     <div className="credential-meta">
@@ -570,5 +590,5 @@ export function PortfolioPage({ locale }: { locale: PortfolioLocale }) {
 }
 
 export default function Home() {
-  return <PortfolioPage locale="vi" />;
+  return <PortfolioPage locale="en" />;
 }
