@@ -1,18 +1,169 @@
 import { ContactForm } from "@/app/components/contact-form";
+import Link from "next/link";
 import {
   credentials,
   profile,
   projects,
   skillGroups,
 } from "@/app/data/portfolio";
+import { projectsEn, skillGroupsEn } from "@/app/data/portfolio-en";
 
-const navItems = [
-  { label: "Giới thiệu", href: "#gioi-thieu" },
-  { label: "Kỹ năng", href: "#ky-nang" },
-  { label: "Dự án", href: "#du-an" },
-  { label: "Kinh nghiệm", href: "#kinh-nghiem" },
-  { label: "Chứng nhận", href: "#chung-nhan" },
-];
+export type PortfolioLocale = "vi" | "en";
+
+const pageCopy = {
+  vi: {
+    skip: "Chuyển đến nội dung chính",
+    homeLabel: "Về đầu trang",
+    navLabel: "Điều hướng chính",
+    mobileNavLabel: "Điều hướng di động",
+    mobileMenuLabel: "Mở menu điều hướng",
+    navItems: [
+      { label: "Giới thiệu", href: "#gioi-thieu" },
+      { label: "Kỹ năng", href: "#ky-nang" },
+      { label: "Dự án", href: "#du-an" },
+      { label: "Kinh nghiệm", href: "#kinh-nghiem" },
+      { label: "Chứng nhận", href: "#chung-nhan" },
+    ],
+    contact: "Liên hệ",
+    heroIntro:
+      "Mình xây dựng các sản phẩm web và mobile rõ ràng, dễ dùng và đáng tin cậy — từ phân tích yêu cầu, phát triển tính năng đến kiểm thử và hoàn thiện trải nghiệm người dùng.",
+    viewProjects: "Xem dự án",
+    contactMe: "Liên hệ với tôi",
+    capabilityLabel: "Hồ sơ năng lực",
+    about: {
+      eyebrow: "Giới thiệu",
+      title: "Tư duy sản phẩm đi cùng nền tảng kỹ thuật.",
+      description:
+        "Mình không chỉ tập trung vào việc tính năng chạy được, mà còn quan tâm cách sản phẩm được hiểu, được dùng và được hoàn thiện.",
+      leadBefore: "Mình là ",
+      leadAfter:
+        ", sinh viên năm cuối ngành Kỹ thuật Phần mềm tại Đại học FPT. Với nền tảng full-stack và mobile, mình đã tham gia xuyên suốt vòng đời sản phẩm: làm rõ yêu cầu, thiết kế luồng người dùng, tích hợp API, kiểm thử giao diện và sửa lỗi.",
+      direction:
+        "Mình hướng đến việc trở thành một Software Engineer có thể tạo ra những sản phẩm chất lượng, lấy người dùng làm trung tâm.",
+    },
+    stats: [
+      { label: "GPA", value: "3.7", suffix: "/ 4.0" },
+      { label: "Dự kiến tốt nghiệp", value: "01", suffix: "/ 2027" },
+      { label: "Dự án tiêu biểu", value: "03", suffix: "dự án" },
+    ],
+    skills: {
+      eyebrow: "Kỹ năng",
+      title: "Bộ công cụ để đưa một ý tưởng thành sản phẩm.",
+      description:
+        "Từ giao diện, dữ liệu và tích hợp API đến kiểm thử, phản hồi và cải tiến trải nghiệm.",
+    },
+    projects: {
+      eyebrow: "Dự án tiêu biểu",
+      title: "Sản phẩm được xây dựng từ bài toán thật.",
+      description:
+        "Ba dự án thể hiện khả năng dẫn dắt nhóm, phát triển đa nền tảng và theo sát chất lượng sản phẩm.",
+      contributions: "Đóng góp chính",
+      technologiesLabel: "Công nghệ sử dụng",
+    },
+    experience: {
+      eyebrow: "Kinh nghiệm",
+      title: "Học từ quy trình phát triển sản phẩm thực tế.",
+      project: "Dự án SOS Khu Phố Tăng Nhơn Phú",
+      points: [
+        "Phát triển tính năng cho hệ thống quản lý yêu cầu và SOS trên web.",
+        "Hỗ trợ làm rõ yêu cầu, kiểm thử và xử lý lỗi.",
+        "Phối hợp nhóm để cải thiện luồng sử dụng và chức năng hệ thống.",
+      ],
+    },
+    credentials: {
+      eyebrow: "Thành tích & chứng chỉ",
+      title: "Dấu mốc cho hành trình học tập liên tục.",
+      description:
+        "Các thẻ đã sẵn sàng để gắn file PDF hoặc liên kết chứng nhận khi được bổ sung.",
+      view: "Xem chứng nhận",
+      unavailable: "Xem chứng nhận · Chưa khả dụng",
+    },
+    contactSection: {
+      eyebrow: "Liên hệ",
+      title: "Cùng tạo ra một sản phẩm có ích.",
+      description:
+        "Mình luôn sẵn sàng học hỏi, hợp tác và đóng góp vào những sản phẩm có giá trị cho người dùng.",
+    },
+    footer: "Được thiết kế và xây dựng chỉn chu tại TP. Hồ Chí Minh.",
+    backToTop: "Lên đầu trang ↑",
+  },
+  en: {
+    skip: "Skip to main content",
+    homeLabel: "Back to top",
+    navLabel: "Main navigation",
+    mobileNavLabel: "Mobile navigation",
+    mobileMenuLabel: "Open navigation menu",
+    navItems: [
+      { label: "About", href: "#gioi-thieu" },
+      { label: "Skills", href: "#ky-nang" },
+      { label: "Projects", href: "#du-an" },
+      { label: "Experience", href: "#kinh-nghiem" },
+      { label: "Credentials", href: "#chung-nhan" },
+    ],
+    contact: "Contact",
+    heroIntro:
+      "I build clear, usable, and reliable web and mobile products — from requirement analysis and feature development to testing and refining the user experience.",
+    viewProjects: "View projects",
+    contactMe: "Contact me",
+    capabilityLabel: "Capability profile",
+    about: {
+      eyebrow: "About",
+      title: "Product thinking grounded in engineering.",
+      description:
+        "I care not only about whether a feature works, but also about how the product is understood, used, and improved.",
+      leadBefore: "I am ",
+      leadAfter:
+        ", a final-year Software Engineering student at FPT University. With a full-stack and mobile foundation, I have contributed throughout the product lifecycle: clarifying requirements, designing user flows, integrating APIs, testing interfaces, and fixing issues.",
+      direction:
+        "I am working toward becoming a Software Engineer who builds high-quality, user-centered products.",
+    },
+    stats: [
+      { label: "GPA", value: "3.7", suffix: "/ 4.0" },
+      { label: "Expected graduation", value: "01", suffix: "/ 2027" },
+      { label: "Featured projects", value: "03", suffix: "projects" },
+    ],
+    skills: {
+      eyebrow: "Skills",
+      title: "The toolkit to turn an idea into a product.",
+      description:
+        "From interfaces, data, and API integration to testing, feedback, and experience refinement.",
+    },
+    projects: {
+      eyebrow: "Featured projects",
+      title: "Products built around real-world problems.",
+      description:
+        "Three projects that demonstrate team leadership, cross-platform development, and attention to product quality.",
+      contributions: "Key contributions",
+      technologiesLabel: "Technologies used",
+    },
+    experience: {
+      eyebrow: "Experience",
+      title: "Learning through a real product development process.",
+      project: "Tan Nhon Phu Neighborhood SOS Project",
+      points: [
+        "Developed features for a web-based request and SOS management system.",
+        "Supported requirement clarification, testing, and issue resolution.",
+        "Collaborated with the team to improve user flows and system functionality.",
+      ],
+    },
+    credentials: {
+      eyebrow: "Awards & credentials",
+      title: "Milestones in a continuous learning journey.",
+      description:
+        "Each card is ready for a PDF file or an external credential link when available.",
+      view: "View credential",
+      unavailable: "View credential · Not available yet",
+    },
+    contactSection: {
+      eyebrow: "Contact",
+      title: "Let’s build something useful.",
+      description:
+        "I am always ready to learn, collaborate, and contribute to products that create meaningful value for users.",
+    },
+    footer: "Designed and built with care in Ho Chi Minh City.",
+    backToTop: "Back to top ↑",
+  },
+} as const;
 
 function ArrowUpRight() {
   return <span aria-hidden="true">↗</span>;
@@ -45,46 +196,68 @@ function SectionHeading({
   );
 }
 
-export default function Home() {
+export function PortfolioPage({ locale }: { locale: PortfolioLocale }) {
+  const t = pageCopy[locale];
+  const localizedProjects = locale === "en" ? projectsEn : projects;
+  const localizedSkills = locale === "en" ? skillGroupsEn : skillGroups;
+
   return (
-    <>
+    <div className="page-shell" lang={locale}>
       <a className="skip-link" href="#noi-dung-chinh">
-        Chuyển đến nội dung chính
+        {t.skip}
       </a>
 
       <header className="site-header">
         <div className="container header-inner">
-          <a className="brand" href="#top" aria-label="Về đầu trang">
+          <a className="brand" href="#top" aria-label={t.homeLabel}>
             <span className="brand-mark" aria-hidden="true">
               {profile.initials}
             </span>
             <span className="brand-name">Thanh Ngân</span>
           </a>
 
-          <nav className="desktop-nav" aria-label="Điều hướng chính">
-            {navItems.map((item) => (
+          <nav className="desktop-nav" aria-label={t.navLabel}>
+            {t.navItems.map((item) => (
               <a key={item.href} href={item.href}>
                 {item.label}
               </a>
             ))}
           </nav>
 
+          <nav className="language-switcher" aria-label="Language selection">
+            <Link
+              className={locale === "vi" ? "is-active" : ""}
+              href="/"
+              aria-current={locale === "vi" ? "page" : undefined}
+            >
+              VI
+            </Link>
+            <span aria-hidden="true">/</span>
+            <Link
+              className={locale === "en" ? "is-active" : ""}
+              href="/en"
+              aria-current={locale === "en" ? "page" : undefined}
+            >
+              EN
+            </Link>
+          </nav>
+
           <a className="header-cta" href="#lien-he">
-            Liên hệ <ArrowUpRight />
+            {t.contact} <ArrowUpRight />
           </a>
 
           <details className="mobile-menu">
-            <summary aria-label="Mở menu điều hướng">
+            <summary aria-label={t.mobileMenuLabel}>
               <span />
               <span />
             </summary>
-            <nav aria-label="Điều hướng di động">
-              {navItems.map((item) => (
+            <nav aria-label={t.mobileNavLabel}>
+              {t.navItems.map((item) => (
                 <a key={item.href} href={item.href}>
                   {item.label}
                 </a>
               ))}
-              <a href="#lien-he">Liên hệ</a>
+              <a href="#lien-he">{t.contact}</a>
             </nav>
           </details>
         </div>
@@ -102,16 +275,14 @@ export default function Home() {
                 <span>Full-stack &amp; Mobile Developer</span>
               </p>
               <p className="hero-intro reveal">
-                Mình xây dựng các sản phẩm web và mobile rõ ràng, dễ dùng và đáng
-                tin cậy — từ phân tích yêu cầu, phát triển tính năng đến kiểm thử
-                và hoàn thiện trải nghiệm người dùng.
+                {t.heroIntro}
               </p>
               <div className="hero-actions reveal">
                 <a className="button button--primary" href="#du-an">
-                  Xem dự án <ArrowUpRight />
+                  {t.viewProjects} <ArrowUpRight />
                 </a>
                 <a className="button button--secondary" href="#lien-he">
-                  Liên hệ với tôi
+                  {t.contactMe}
                 </a>
               </div>
               <div className="hero-meta reveal">
@@ -123,7 +294,7 @@ export default function Home() {
               </div>
             </div>
 
-            <aside className="capability-card reveal" aria-label="Hồ sơ năng lực">
+            <aside className="capability-card reveal" aria-label={t.capabilityLabel}>
               <div className="capability-card__top">
                 <span className="status-dot" />
                 <span>Open to opportunities</span>
@@ -171,38 +342,30 @@ export default function Home() {
           <div className="container">
             <SectionHeading
               index="01"
-              eyebrow="Giới thiệu"
-              title="Tư duy sản phẩm đi cùng nền tảng kỹ thuật."
-              description="Mình không chỉ tập trung vào việc tính năng chạy được, mà còn quan tâm cách sản phẩm được hiểu, được dùng và được hoàn thiện."
+              eyebrow={t.about.eyebrow}
+              title={t.about.title}
+              description={t.about.description}
             />
 
             <div className="about-grid reveal">
               <div className="about-copy">
                 <p>
-                  Mình là <strong>Mai Thị Thanh Ngân</strong>, sinh viên năm cuối
-                  ngành Kỹ thuật Phần mềm tại Đại học FPT. Với nền tảng full-stack
-                  và mobile, mình đã tham gia xuyên suốt vòng đời sản phẩm: làm rõ
-                  yêu cầu, thiết kế luồng người dùng, tích hợp API, kiểm thử giao
-                  diện và sửa lỗi.
+                  {t.about.leadBefore}
+                  <strong>Mai Thị Thanh Ngân</strong>
+                  {t.about.leadAfter}
                 </p>
-                <p>
-                  Mình hướng đến việc trở thành một Software Engineer có thể tạo ra
-                  những sản phẩm chất lượng, lấy người dùng làm trung tâm.
-                </p>
+                <p>{t.about.direction}</p>
               </div>
               <dl className="stats-grid">
-                <div>
-                  <dt>GPA</dt>
-                  <dd>3.7<span>/4.0</span></dd>
-                </div>
-                <div>
-                  <dt>Dự kiến tốt nghiệp</dt>
-                  <dd>01<span>/2027</span></dd>
-                </div>
-                <div>
-                  <dt>Dự án tiêu biểu</dt>
-                  <dd>03<span>full-stack &amp; mobile</span></dd>
-                </div>
+                {t.stats.map((stat) => (
+                  <div key={stat.label}>
+                    <dt>{stat.label}</dt>
+                    <dd>
+                      <strong>{stat.value}</strong>
+                      <span>{stat.suffix}</span>
+                    </dd>
+                  </div>
+                ))}
               </dl>
             </div>
           </div>
@@ -212,13 +375,13 @@ export default function Home() {
           <div className="container">
             <SectionHeading
               index="02"
-              eyebrow="Kỹ năng"
-              title="Bộ công cụ để đưa một ý tưởng thành sản phẩm."
-              description="Từ giao diện, dữ liệu và tích hợp API đến kiểm thử, phản hồi và cải tiến trải nghiệm."
+              eyebrow={t.skills.eyebrow}
+              title={t.skills.title}
+              description={t.skills.description}
               light
             />
             <div className="skills-grid">
-              {skillGroups.map((group) => (
+              {localizedSkills.map((group) => (
                 <article className="skill-card reveal" key={group.title}>
                   <div className="skill-card__heading">
                     <span>{group.code}</span>
@@ -239,13 +402,13 @@ export default function Home() {
           <div className="container">
             <SectionHeading
               index="03"
-              eyebrow="Dự án tiêu biểu"
-              title="Sản phẩm được xây dựng từ bài toán thật."
-              description="Ba dự án thể hiện khả năng dẫn dắt nhóm, phát triển đa nền tảng và theo sát chất lượng sản phẩm."
+              eyebrow={t.projects.eyebrow}
+              title={t.projects.title}
+              description={t.projects.description}
             />
 
             <div className="project-list">
-              {projects.map((project) => (
+              {localizedProjects.map((project) => (
                 <article className="project reveal" key={project.id}>
                   <div className={`project-visual project-visual--${project.accent}`}>
                     <div className="project-visual__header">
@@ -270,14 +433,14 @@ export default function Home() {
                     <h3>{project.title}</h3>
                     <p className="project-description">{project.description}</p>
                     <div className="contribution-block">
-                      <h4>Đóng góp chính</h4>
+                      <h4>{t.projects.contributions}</h4>
                       <ul>
                         {project.contributions.map((item) => (
                           <li key={item}>{item}</li>
                         ))}
                       </ul>
                     </div>
-                    <ul className="tag-list" aria-label="Công nghệ sử dụng">
+                    <ul className="tag-list" aria-label={t.projects.technologiesLabel}>
                       {project.technologies.map((technology) => (
                         <li key={technology}>{technology}</li>
                       ))}
@@ -300,8 +463,8 @@ export default function Home() {
           <div className="container">
             <SectionHeading
               index="04"
-              eyebrow="Kinh nghiệm"
-              title="Học từ quy trình phát triển sản phẩm thực tế."
+              eyebrow={t.experience.eyebrow}
+              title={t.experience.title}
             />
 
             <article className="experience-row reveal">
@@ -313,12 +476,12 @@ export default function Home() {
               <div className="experience-title">
                 <p>Amazing Tech</p>
                 <h3>Frontend Developer Intern</h3>
-                <span>Dự án SOS Khu Phố Tăng Nhơn Phú</span>
+                <span>{t.experience.project}</span>
               </div>
               <ul className="experience-points">
-                <li>Phát triển tính năng cho hệ thống quản lý yêu cầu và SOS trên web.</li>
-                <li>Hỗ trợ làm rõ yêu cầu, kiểm thử và xử lý lỗi.</li>
-                <li>Phối hợp nhóm để cải thiện luồng sử dụng và chức năng hệ thống.</li>
+                {t.experience.points.map((point) => (
+                  <li key={point}>{point}</li>
+                ))}
               </ul>
             </article>
           </div>
@@ -328,9 +491,9 @@ export default function Home() {
           <div className="container">
             <SectionHeading
               index="05"
-              eyebrow="Thành tích & chứng chỉ"
-              title="Dấu mốc cho hành trình học tập liên tục."
-              description="Các thẻ đã sẵn sàng để gắn file PDF hoặc liên kết chứng nhận khi được bổ sung."
+              eyebrow={t.credentials.eyebrow}
+              title={t.credentials.title}
+              description={t.credentials.description}
             />
 
             <div className="credential-grid">
@@ -359,11 +522,11 @@ export default function Home() {
                     <h3>{credential.title}</h3>
                     {credential.credentialUrl ? (
                       <a href={credential.credentialUrl} target="_blank" rel="noreferrer">
-                        Xem chứng nhận <ArrowUpRight />
+                        {t.credentials.view} <ArrowUpRight />
                       </a>
                     ) : (
                       <span className="credential-disabled" aria-disabled="true">
-                        Xem chứng nhận · Chưa khả dụng
+                        {t.credentials.unavailable}
                       </span>
                     )}
                   </div>
@@ -376,12 +539,9 @@ export default function Home() {
         <section className="contact" id="lien-he">
           <div className="container contact-grid">
             <div className="contact-copy reveal">
-              <p className="eyebrow eyebrow--light">06 · Liên hệ</p>
-              <h2>Cùng tạo ra một sản phẩm có ích.</h2>
-              <p>
-                Mình luôn sẵn sàng học hỏi, hợp tác và đóng góp vào những sản phẩm
-                có giá trị cho người dùng.
-              </p>
+              <p className="eyebrow eyebrow--light">06 · {t.contactSection.eyebrow}</p>
+              <h2>{t.contactSection.title}</h2>
+              <p>{t.contactSection.description}</p>
               <div className="contact-links">
                 <a href={`mailto:${profile.email}`}>
                   {profile.email} <ArrowUpRight />
@@ -392,7 +552,7 @@ export default function Home() {
               </div>
             </div>
             <div className="reveal">
-              <ContactForm />
+              <ContactForm locale={locale} />
             </div>
           </div>
         </section>
@@ -401,10 +561,14 @@ export default function Home() {
       <footer className="site-footer">
         <div className="container footer-inner">
           <p>© {new Date().getFullYear()} Mai Thị Thanh Ngân</p>
-          <p>Designed &amp; built with care in Ho Chi Minh City.</p>
-          <a href="#top">Lên đầu trang ↑</a>
+          <p>{t.footer}</p>
+          <a href="#top">{t.backToTop}</a>
         </div>
       </footer>
-    </>
+    </div>
   );
+}
+
+export default function Home() {
+  return <PortfolioPage locale="vi" />;
 }

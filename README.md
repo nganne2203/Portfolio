@@ -1,6 +1,6 @@
 # Mai Thị Thanh Ngân Portfolio
 
-Landing page portfolio cá nhân được xây dựng bằng Next.js 16, React 19 và TypeScript. Trang giới thiệu định hướng Full-stack & Mobile Developer, kỹ năng, dự án, kinh nghiệm, thành tích và thông tin liên hệ.
+Landing page portfolio cá nhân song ngữ được xây dựng bằng Next.js 16, React 19 và TypeScript. Trang giới thiệu định hướng Full-stack & Mobile Developer, kỹ năng, dự án, kinh nghiệm, thành tích và thông tin liên hệ.
 
 ## Chạy dự án
 
@@ -10,6 +10,9 @@ npm run dev
 ```
 
 Mở [http://localhost:3000](http://localhost:3000).
+
+- Tiếng Việt: `/`
+- English: `/en`
 
 ## Kiểm tra trước khi deploy
 
@@ -23,7 +26,8 @@ Webpack được dùng cho bước build cục bộ để tránh giới hạn m�
 ## Cập nhật nội dung
 
 - Nội dung hiển thị chính: `app/page.tsx`
-- Dự án, kỹ năng, chứng chỉ và thông tin cá nhân: `app/data/portfolio.ts`
+- Dự án, kỹ năng, chứng chỉ và thông tin cá nhân tiếng Việt: `app/data/portfolio.ts`
+- Nội dung dự án và kỹ năng tiếng Anh: `app/data/portfolio-en.ts`
 - Hệ thống màu, responsive và hiệu ứng: `app/globals.css`
 - Form liên hệ: `app/components/contact-form.tsx`
 
