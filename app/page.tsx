@@ -1,5 +1,6 @@
 import { ContactForm } from "@/app/components/contact-form";
 import Link from "next/link";
+import Image from "next/image";
 import {
   credentials,
   profile,
@@ -211,7 +212,15 @@ export function PortfolioPage({ locale }: { locale: PortfolioLocale }) {
         <div className="container header-inner">
           <a className="brand" href="#top" aria-label={t.homeLabel}>
             <span className="brand-mark" aria-hidden="true">
-              {profile.initials}
+              <Image
+                src={profile.avatar}
+                alt=""
+                width={48}
+                height={48}
+                sizes="48px"
+                className="brand-avatar"
+                priority
+              />
             </span>
             <span className="brand-name">Thanh Ngân</span>
           </a>

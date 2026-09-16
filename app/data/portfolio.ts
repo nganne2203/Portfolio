@@ -35,6 +35,7 @@ export interface Credential {
 export const profile = {
   name: "Mai Thị Thanh Ngân",
   initials: "MN",
+  avatar: "/images/avatar.jpg",
   role: "Software Engineering Student | Full-stack & Mobile Developer",
   location: "Thu Duc City, Ho Chi Minh City, Vietnam",
   email: "thanhngan.pt2004@gmail.com",
