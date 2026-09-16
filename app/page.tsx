@@ -526,9 +526,13 @@ export function PortfolioPage({ locale }: { locale: PortfolioLocale }) {
                     }
                     aria-hidden="true"
                   >
-                    <span>{credential.type === "award" ? "Award" : "Certificate"}</span>
-                    <strong>{String(index + 1).padStart(2, "0")}</strong>
-                    <i>{credential.issuer}</i>
+                    {!credential.thumbnail && (
+                      <>
+                        <span>{credential.type === "award" ? "Award" : "Certificate"}</span>
+                        <strong>{String(index + 1).padStart(2, "0")}</strong>
+                        <i>{credential.issuer}</i>
+                      </>
+                    )}
                   </div>
                   <div className="credential-content">
                     <div className="credential-meta">

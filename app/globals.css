@@ -1068,15 +1068,10 @@ a {
 }
 
 .credential-preview--image {
+  background-color: #f7f9fc;
   background-position: center;
-  background-size: cover;
-}
-
-.credential-preview--image::after {
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(135deg, rgba(8, 22, 45, 0.82), rgba(8, 22, 45, 0.26));
-  content: "";
+  background-repeat: no-repeat;
+  background-size: contain;
 }
 
 .credential-preview > * {
